@@ -15,12 +15,15 @@ namespace MartApplication
     {
         int tax = 0;
         int SrNo = 0;
+        int FinalCost = 0;
         public Form1()
         {
           
             InitializeComponent();
             getItem();
+            quantitytxt.KeyUp += Quantitytxt_KeyUp;
             comboBox1.KeyUp += ComboBox1_KeyUp;
+            button1.KeyUp += Button1_KeyUp;
             dataGridView1.ColumnCount = 8;
             dataGridView1.Columns[0].Name = "SR NO";
             dataGridView1.Columns[1].Name = "ITEM NAME";
@@ -30,7 +33,24 @@ namespace MartApplication
             dataGridView1.Columns[5].Name = "SUB TOTAL";
             dataGridView1.Columns[6].Name = "TAX";
             dataGridView1.Columns[7].Name = "TOTAL COST";
+            comboBox1.Focus();
             
+        }
+
+        private void Button1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode==Keys.Enter)
+            {
+                comboBox1.Focus();
+            }
+        }
+
+        private void Quantitytxt_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode==Keys.Enter)
+            {
+                button1.Focus();
+            }
         }
 
         private void ComboBox1_KeyUp(object sender, KeyEventArgs e)
@@ -140,6 +160,7 @@ namespace MartApplication
 
         private void quantitytxt_TextChanged(object sender, EventArgs e)
         {
+            
             if (string.IsNullOrEmpty(quantitytxt.Text) == true)
             {
 
@@ -177,27 +198,27 @@ namespace MartApplication
                 int subtotal = Convert.ToInt32(subtxt.Text);
                 if (subtotal >= 10000)
                 {
-                    tax = (int)(subtotal * 0.15);
+                    tax = (int)(subtotal * 0.07);
                     taxtxt.Text = tax.ToString();
                 }
                 else if (subtotal >= 6000)
                 {
-                    tax = (int)(subtotal * 0.10);
+                    tax = (int)(subtotal * 0.05);
                     taxtxt.Text = tax.ToString();
                 }
                 else if (subtotal >= 3000)
                 {
-                    tax = (int)(subtotal * 0.07);
+                    tax = (int)(subtotal * 0.04);
                     taxtxt.Text = tax.ToString();
                 }
                 else if (subtotal >= 1000)
                 {
-                    tax = (int)(subtotal * 0.05);
+                    tax = (int)(subtotal * 0.02);
                     taxtxt.Text = tax.ToString();
                 }
                 else
                 {
-                    tax = (int)(subtotal * 0.03);
+                    tax = (int)(subtotal * 0.02);
                     taxtxt.Text = tax.ToString();
                 }
             }
@@ -232,11 +253,21 @@ namespace MartApplication
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (comboBox1.SelectedItem == null)
+            {
+
+            }
+            else
+            {
+
+          
+
             addToGridView((++SrNo).ToString(), comboBox1.SelectedItem.ToString(), unitpricetxt.Text, discounttxt.Text, quantitytxt.Text, subtxt.Text, taxtxt.Text, totalcosttxt.Text);
             clearData();
             comboBox1.Focus();
-
-        
+            finalCost();
+        }
+         
         }
     public void clearData()
         {
@@ -248,10 +279,21 @@ namespace MartApplication
             taxtxt.Text = "";
             totalcosttxt.Text = "";
         }
-    
+        public void finalCost()
+        {
+            FinalCost = 0;
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                FinalCost = FinalCost + Convert.ToInt32(dataGridView1.Rows[i].Cells[7].Value);
+               
+
+            }
+            finalCosttxt.Text = FinalCost.ToString();
+
+        }
     }
 
-
+    
   
 }
  
