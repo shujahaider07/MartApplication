@@ -161,6 +161,7 @@ namespace MartApplication
             this.Controls.Add(this.button1);
             this.Controls.Add(this.passwordtxt);
             this.Controls.Add(this.usertxt);
+            this.MaximizeBox = false;
             this.Name = "login";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "login";

@@ -18,13 +18,13 @@ namespace MartApplication
         int tax = 0;
         int SrNo = 0;
         int FinalCost = 0;
-        string cs = ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString; 
+        string cs = ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
 
         public Form1()
         {
-          
+
             InitializeComponent();
-           
+
             getItem();
 
             comboBox1.Focus();
@@ -43,19 +43,19 @@ namespace MartApplication
             dataGridView1.Columns[7].Name = "TOTAL COST";
             username1txt.Text = login.username;
             button2.KeyUp += Button2_KeyUp;
-            
-            
+
+
         }
-      
+
         private void Button2_KeyUp(object sender, KeyEventArgs e)
         {
-            
+
 
         }
 
         private void Button1_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode==Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
             {
                 comboBox1.Focus();
             }
@@ -63,7 +63,7 @@ namespace MartApplication
 
         private void Quantitytxt_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode==Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
             {
                 button1.Focus();
             }
@@ -78,7 +78,7 @@ namespace MartApplication
             }
         }
 
-  
+
         private void Form1_Load(object sender, EventArgs e)
         {
             comboBox1.Focus();
@@ -92,19 +92,20 @@ namespace MartApplication
 
         public void getItem()
         {
+            comboBox1.Items.Clear();
             SqlConnection sql = new SqlConnection(cs);
             sql.Open();
             string qry = "select * from itemstbl";
-            SqlCommand cmd = new SqlCommand(qry,sql);
+            SqlCommand cmd = new SqlCommand(qry, sql);
             SqlDataReader dr = cmd.ExecuteReader();
-            while(dr.Read())
+            while (dr.Read())
             {
                 string items = dr.GetString(1);
                 comboBox1.Items.Add(items);
 
             }
 
-            
+            comboBox1.Sorted = true;
 
 
             sql.Close();
@@ -123,9 +124,9 @@ namespace MartApplication
                 sql.Open();
                 int price = 0;
                 string qry = "select item_price from itemstbl where item_name = @name";
-                SqlDataAdapter da = new SqlDataAdapter(qry,sql);
+                SqlDataAdapter da = new SqlDataAdapter(qry, sql);
                 da.SelectCommand.Parameters.AddWithValue("@name", comboBox1.SelectedItem.ToString());
-                DataTable dt = new DataTable(); 
+                DataTable dt = new DataTable();
                 da.Fill(dt);
                 if (dt.Rows.Count > 0)
                 {
@@ -145,17 +146,18 @@ namespace MartApplication
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             getPrice();
+           // getPrice1();
             Discount();
             quantitytxt.Enabled = true;
 
         }
-    
+
         public void Discount()
         {
             if (comboBox1.SelectedItem == null)
             {
 
-            }
+            }   
             else
             {
                 SqlConnection sql = new SqlConnection(cs);
@@ -180,7 +182,7 @@ namespace MartApplication
 
         private void quantitytxt_TextChanged(object sender, EventArgs e)
         {
-            
+
             if (string.IsNullOrEmpty(quantitytxt.Text) == true)
             {
 
@@ -207,9 +209,9 @@ namespace MartApplication
 
             }
 
-         }
+        }
 
-       
+
 
         private void subtxt_TextChanged(object sender, EventArgs e)
         {
@@ -254,7 +256,7 @@ namespace MartApplication
         private void taxtxt_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(taxtxt.Text) == true)
-            {   
+            {
 
             }
             else
@@ -268,11 +270,11 @@ namespace MartApplication
                 totalcosttxt.Text = totalcost.ToString();
 
             }
-      }
+        }
 
         public void addToGridView(string sr_no, string item_name, string unit_price, string discount, string quantity, string subTotal, string tax, string subtotal)
         {
-            string [] row = {sr_no, item_name, unit_price, discount , quantity, subTotal , tax , subtotal };
+            string[] row = { sr_no, item_name, unit_price, discount, quantity, subTotal, tax, subtotal };
             dataGridView1.Rows.Add(row);
 
         }
@@ -288,16 +290,16 @@ namespace MartApplication
             else
             {
 
-            addToGridView((++SrNo).ToString(), comboBox1.SelectedItem.ToString(), unitpricetxt.Text, discounttxt.Text, quantitytxt.Text, subtxt.Text, taxtxt.Text, totalcosttxt.Text);
-            clearData();
-            quantitytxt.Enabled = false;
-            comboBox1.Focus();
-            finalCost();
-                
+                addToGridView((++SrNo).ToString(), comboBox1.SelectedItem.ToString(), unitpricetxt.Text, discounttxt.Text, quantitytxt.Text, subtxt.Text, taxtxt.Text, totalcosttxt.Text);
+                clearData();
+                quantitytxt.Enabled = false;
+                comboBox1.Focus();
+                finalCost();
+
             }
-         
+
         }
-    public void clearData()
+        public void clearData()
         {
             comboBox1.SelectedItem = null;
             unitpricetxt.Text = "";
@@ -312,8 +314,8 @@ namespace MartApplication
             FinalCost = 0;
             for (int i = 0; i < dataGridView1.Rows.Count; i++)
             {
-                 FinalCost = FinalCost + Convert.ToInt32(dataGridView1.Rows[i].Cells[7].Value);
-               
+                FinalCost = FinalCost + Convert.ToInt32(dataGridView1.Rows[i].Cells[7].Value);
+
 
             }
             finalCosttxt.Text = FinalCost.ToString();
@@ -324,11 +326,11 @@ namespace MartApplication
         {
 
         }
-     
+
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(Amountpaidtxt.Text)== true)
+            if (string.IsNullOrEmpty(Amountpaidtxt.Text) == true)
             {
 
             }
@@ -345,7 +347,7 @@ namespace MartApplication
 
         private void button2_Click(object sender, EventArgs e)
         {
-            var confirmResult = MessageBox.Show("Are you sure to delete this item ??","Confirm Delete!!",MessageBoxButtons.YesNo);
+            var confirmResult = MessageBox.Show("Are you sure to delete this item ??", "Confirm Delete!!", MessageBoxButtons.YesNo);
             if (confirmResult == DialogResult.Yes)
             {
                 finalCosttxt.Text = "";
@@ -358,7 +360,7 @@ namespace MartApplication
             }
             else
             {
-            
+
 
             }
 
@@ -367,10 +369,11 @@ namespace MartApplication
         private void quantitytxt_KeyPress(object sender, KeyPressEventArgs e)
         {
             char ch = e.KeyChar;
-            if (char.IsDigit(ch)==true)
+            if (char.IsDigit(ch) == true)
             {
                 e.Handled = false;
-            }else if (e.KeyChar == 8)
+            }
+            else if (e.KeyChar == 8)
             {
                 e.Handled = false;
             }
@@ -380,33 +383,33 @@ namespace MartApplication
             }
 
         }
-               public void getInvoice()
+        public void getInvoice()
         {
             SqlConnection sql = new SqlConnection(cs);
 
             string qry = "select invoiceId from order_master";
-                SqlDataAdapter da = new SqlDataAdapter(qry,sql);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                if (dt.Rows.Count < 1)
-                {
-                   
+            SqlDataAdapter da = new SqlDataAdapter(qry, sql);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            if (dt.Rows.Count < 1)
+            {
+
                 invoicetxt.Text = "1";
 
-                }
-                else
-                {
-                   
-                
-                   string qry1 = "select max(invoiceid) from order_master";
-                   SqlCommand cmd = new SqlCommand(qry1,sql);
-                   sql.Open();
-                   int a = Convert.ToInt32(cmd.ExecuteScalar());
-                   
-                   a = a + 1;
+            }
+            else
+            {
 
-                   invoicetxt.Text = a.ToString();
-                   sql.Close();
+
+                string qry1 = "select max(invoiceid) from order_master";
+                SqlCommand cmd = new SqlCommand(qry1, sql);
+                sql.Open();
+                int a = Convert.ToInt32(cmd.ExecuteScalar());
+
+                a = a + 1;
+
+                invoicetxt.Text = a.ToString();
+                sql.Close();
 
             }
 
@@ -416,11 +419,11 @@ namespace MartApplication
         {
             SqlConnection sql = new SqlConnection(cs);
             string qry = "insert into order_master values(@id,@user,@datatime,@finalcost)";
-            SqlCommand cmd = new SqlCommand(qry,sql);
-            cmd.Parameters.AddWithValue("@id",invoicetxt.Text); 
-            cmd.Parameters.AddWithValue("@user",username1txt.Text); 
-            cmd.Parameters.AddWithValue("@datatime",DateTime.Now.ToString()); 
-            cmd.Parameters.AddWithValue("@finalcost",finalCosttxt.Text);
+            SqlCommand cmd = new SqlCommand(qry, sql);
+            cmd.Parameters.AddWithValue("@id", invoicetxt.Text);
+            cmd.Parameters.AddWithValue("@user", username1txt.Text);
+            cmd.Parameters.AddWithValue("@datatime", DateTime.Now.ToString());
+            cmd.Parameters.AddWithValue("@finalcost", finalCosttxt.Text);
             sql.Open();
 
             int a = cmd.ExecuteNonQuery();
@@ -472,38 +475,37 @@ namespace MartApplication
         {
             Bitmap bmp = Properties.Resources.syrmart;
             Image img = bmp;
-            e.Graphics.DrawImage(img,30,5,800,150);
-            e.Graphics.DrawString("Invoice id :" + invoicetxt.Text, new Font("Arial",15,FontStyle.Bold),Brushes.Black,new Point(30,340));
-            e.Graphics.DrawString("Username :" +username1txt.Text, new Font("Arial",15,FontStyle.Bold),Brushes.Black,new Point(30,370));
-            e.Graphics.DrawString("DATE :" +DateTime.Now, new Font("Arial",15,FontStyle.Bold),Brushes.Black,new Point(30,400));
-            e.Graphics.DrawString("TIME :" +DateTime.Now, new Font("Arial",15,FontStyle.Bold),Brushes.Black,new Point(30,430));
-            e.Graphics.DrawString("------------------------------------------------------------------------------------------" ,new Font
-            ("Arial",15,FontStyle.Bold),Brushes.Black,new Point(30,480));
+            e.Graphics.DrawImage(img, 30, 5, 800, 150);
+
+            e.Graphics.DrawString("Invoice id :" + invoicetxt.Text, new Font("Arial", 15, FontStyle.Bold), Brushes.Black, new Point(30, 340));
+            e.Graphics.DrawString("Username :" + username1txt.Text, new Font("Arial", 15, FontStyle.Bold), Brushes.Black, new Point(30, 370));
+            e.Graphics.DrawString("DATE :" + DateTime.Now, new Font("Arial", 15, FontStyle.Bold), Brushes.Black, new Point(30, 400));
+            e.Graphics.DrawString("TIME :" + DateTime.Now, new Font("Arial", 15, FontStyle.Bold), Brushes.Black, new Point(30, 430));
+            e.Graphics.DrawString("----------------------------------------------------------------------------------------------------", new Font
+            ("Arial", 15, FontStyle.Bold), Brushes.Black, new Point(30, 480));
 
 
 
 
 
 
-            e.Graphics.DrawString("Item" ,new Font("Arial",15, FontStyle.Bold), Brushes.Black, new Point(30, 520));
+            e.Graphics.DrawString("Item", new Font("Arial", 15, FontStyle.Bold), Brushes.Black, new Point(30, 520));
 
-            e.Graphics.DrawString("Price", new Font("Arial",15, FontStyle.Bold), Brushes.Black, new Point(100, 520));
+            e.Graphics.DrawString("Price", new Font("Arial", 15, FontStyle.Bold), Brushes.Black, new Point(250, 520));
 
-            e.Graphics.DrawString("Quantity", new Font("Arial", 15, FontStyle.Bold), Brushes.Black, new Point(180, 520));
+            e.Graphics.DrawString("Quantity", new Font("Arial", 15, FontStyle.Bold), Brushes.Black, new Point(450, 520));
 
-
-           e.Graphics.DrawString("Discount", new Font("Arial", 15, FontStyle.Bold), Brushes.Black, new Point(280, 520));
-
+            e.Graphics.DrawString("Discount", new Font("Arial", 15, FontStyle.Bold), Brushes.Black, new Point(650, 520));
 
 
 
 
 
-            e.Graphics.DrawString("------------------------------------------------------------------------------------------", new Font("Arial",15,FontStyle.Bold),Brushes.Black,new Point(30,600));
 
 
 
-            if (dataGridView1.Rows.Count > 0 )
+
+            if (dataGridView1.Rows.Count > 0)
             {
 
                 try
@@ -520,13 +522,188 @@ namespace MartApplication
                 catch
                 {
 
-                } 
-                    
-            }
                 }
-            
+
+            }
+
+
+
+
+
+
+
+            if (dataGridView1.Rows.Count > 0)
+            {
+
+                try
+                {
+
+                    int gap1 = 610;
+                    for (int i = 0; i < dataGridView1.Rows.Count; i++)
+                    {
+
+                        e.Graphics.DrawString(dataGridView1.Rows[i].Cells[2].Value.ToString(), new Font("Arial", 15, FontStyle.Bold), Brushes.Black, new Point(250, gap1));
+                        gap1 = gap1 + 30;
+                    }
+                }
+                catch
+                {
+
+                }
+
+            }
+
+
+
+
+            if (dataGridView1.Rows.Count > 0)
+            {
+
+                try
+                {
+
+                    int gap2 = 610;
+                    for (int i = 0; i < dataGridView1.Rows.Count; i++)
+                    {
+
+                        e.Graphics.DrawString(dataGridView1.Rows[i].Cells[4].Value.ToString(), new Font("Arial", 15, FontStyle.Bold), Brushes.Black, new Point(450, gap2));
+                        gap2 = gap2 + 30;
+                    }
+                }
+                catch
+                {
+
+                }
+
+            }
+
+
+            if (dataGridView1.Rows.Count > 0)
+            {
+
+                try
+                {
+
+                    int gap3 = 610;
+                    for (int i = 0; i < dataGridView1.Rows.Count; i++)
+                    {
+
+                        e.Graphics.DrawString(dataGridView1.Rows[i].Cells[3].Value.ToString(), new Font("Arial", 15, FontStyle.Bold), Brushes.Black, new Point(650, gap3));
+                        gap3 = gap3 + 30;
+                    }
+                }
+                catch
+                {
+
+                }
+
+            }
+
+            int subtotalPrint = 0;
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                subtotalPrint = subtotalPrint + Convert.ToInt32(dataGridView1.Rows[i].Cells[5].Value);
+
+
+            }
+
+            e.Graphics.DrawString("Subtotal: " + subtotalPrint.ToString(), new Font("Arial", 15, FontStyle.Bold), Brushes.Black, new Point(30, 800));
+
+
+
+            int taxPrint = 0;
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                taxPrint = taxPrint + Convert.ToInt32(dataGridView1.Rows[i].Cells[6].Value);
+
+
+            }
+
+            e.Graphics.DrawString("Tax: " + taxPrint.ToString(), new Font("Arial", 15, FontStyle.Bold), Brushes.Black, new Point(30, 830));
+
+
+
+
+
+
+            int finalamountAdd = 0;
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                finalamountAdd = finalamountAdd + Convert.ToInt32(dataGridView1.Rows[i].Cells[7].Value);
+
+
+            }
+
+            e.Graphics.DrawString("Final Amount: " + finalamountAdd.ToString(), new Font("Arial", 15, FontStyle.Bold), Brushes.Black, new Point(30, 860));
+
+
+
+
+
+
+
+
+
+
+
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            login l1 = new login();
+            var confirmResult = MessageBox.Show("Are you sure to LOGOUT ? ", " LOGOUT ! ", MessageBoxButtons.YesNo);
+            if (confirmResult == DialogResult.Yes)
+            {
+
+                this.Hide();
+                l1.ShowDialog();
+
+
+
+            }
+            else
+            {
+
+            }
+
+
+        }
+
+        private void pbtxt_Click(object sender, EventArgs e)
+        {
+            printDocument1.Print();
+        }
+
+        private void addItemToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            addItems a1 = new addItems();
+            a1.Show();
+        }
+
+        private void addItemsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            addItems ad = new addItems();
+            ad.ShowDialog();
+        }
+
+        private void Form1_Activated(object sender, EventArgs e)
+        {
+            getItem();
+        }
+
+        private void editItemsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Edititems et = new Edititems();
+            et.ShowDialog();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+       
     }
+}
 
 
 

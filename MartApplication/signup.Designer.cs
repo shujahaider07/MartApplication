@@ -186,9 +186,10 @@ namespace MartApplication
             // addtxt
             // 
             this.addtxt.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.addtxt.Location = new System.Drawing.Point(291, 275);
+            this.addtxt.Location = new System.Drawing.Point(291, 267);
+            this.addtxt.Multiline = true;
             this.addtxt.Name = "addtxt";
-            this.addtxt.Size = new System.Drawing.Size(234, 26);
+            this.addtxt.Size = new System.Drawing.Size(234, 42);
             this.addtxt.TabIndex = 4;
             // 
             // agetxt
@@ -276,7 +277,9 @@ namespace MartApplication
             this.ClientSize = new System.Drawing.Size(846, 752);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.MaximizeBox = false;
             this.Name = "signup";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "signup";
             this.Load += new System.EventHandler(this.signup_Load);
