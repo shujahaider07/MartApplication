@@ -31,20 +31,20 @@ namespace MartApplication
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Edititems));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.idtxt = new System.Windows.Forms.TextBox();
-            this.ednametxt = new System.Windows.Forms.TextBox();
-            this.edpricetxt = new System.Windows.Forms.TextBox();
-            this.eddistxt = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.editBtn = new System.Windows.Forms.Button();
             this.delbtn = new System.Windows.Forms.Button();
+            this.editBtn = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.eddistxt = new System.Windows.Forms.TextBox();
+            this.edpricetxt = new System.Windows.Forms.TextBox();
+            this.ednametxt = new System.Windows.Forms.TextBox();
+            this.idtxt = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.label5 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -69,66 +69,27 @@ namespace MartApplication
             this.panel1.Size = new System.Drawing.Size(549, 512);
             this.panel1.TabIndex = 0;
             // 
-            // idtxt
+            // delbtn
             // 
-            this.idtxt.Location = new System.Drawing.Point(192, 82);
-            this.idtxt.Name = "idtxt";
-            this.idtxt.Size = new System.Drawing.Size(201, 26);
-            this.idtxt.TabIndex = 0;
+            this.delbtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.delbtn.Location = new System.Drawing.Point(301, 420);
+            this.delbtn.Name = "delbtn";
+            this.delbtn.Size = new System.Drawing.Size(135, 45);
+            this.delbtn.TabIndex = 9;
+            this.delbtn.Text = "DELETE";
+            this.delbtn.UseVisualStyleBackColor = true;
+            this.delbtn.Click += new System.EventHandler(this.delbtn_Click);
             // 
-            // ednametxt
+            // editBtn
             // 
-            this.ednametxt.Location = new System.Drawing.Point(192, 161);
-            this.ednametxt.Name = "ednametxt";
-            this.ednametxt.Size = new System.Drawing.Size(201, 26);
-            this.ednametxt.TabIndex = 1;
-            // 
-            // edpricetxt
-            // 
-            this.edpricetxt.Location = new System.Drawing.Point(192, 236);
-            this.edpricetxt.Name = "edpricetxt";
-            this.edpricetxt.Size = new System.Drawing.Size(201, 26);
-            this.edpricetxt.TabIndex = 2;
-            // 
-            // eddistxt
-            // 
-            this.eddistxt.Location = new System.Drawing.Point(192, 328);
-            this.eddistxt.Name = "eddistxt";
-            this.eddistxt.Size = new System.Drawing.Size(201, 26);
-            this.eddistxt.TabIndex = 3;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label1.Location = new System.Drawing.Point(31, 82);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(36, 26);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "ID";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label2.Location = new System.Drawing.Point(31, 161);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(142, 26);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "ITEM NAME";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label3.Location = new System.Drawing.Point(31, 242);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(85, 26);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "PRICE";
+            this.editBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.editBtn.Location = new System.Drawing.Point(151, 420);
+            this.editBtn.Name = "editBtn";
+            this.editBtn.Size = new System.Drawing.Size(135, 45);
+            this.editBtn.TabIndex = 8;
+            this.editBtn.Text = "EDIT";
+            this.editBtn.UseVisualStyleBackColor = true;
+            this.editBtn.Click += new System.EventHandler(this.editBtn_Click);
             // 
             // label4
             // 
@@ -141,25 +102,67 @@ namespace MartApplication
             this.label4.TabIndex = 7;
             this.label4.Text = "DISCOUNT";
             // 
-            // editBtn
+            // label3
             // 
-            this.editBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.editBtn.Location = new System.Drawing.Point(151, 420);
-            this.editBtn.Name = "editBtn";
-            this.editBtn.Size = new System.Drawing.Size(135, 45);
-            this.editBtn.TabIndex = 8;
-            this.editBtn.Text = "EDIT";
-            this.editBtn.UseVisualStyleBackColor = true;
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label3.Location = new System.Drawing.Point(31, 242);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(85, 26);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "PRICE";
             // 
-            // delbtn
+            // label2
             // 
-            this.delbtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.delbtn.Location = new System.Drawing.Point(301, 420);
-            this.delbtn.Name = "delbtn";
-            this.delbtn.Size = new System.Drawing.Size(135, 45);
-            this.delbtn.TabIndex = 9;
-            this.delbtn.Text = "DELETE";
-            this.delbtn.UseVisualStyleBackColor = true;
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label2.Location = new System.Drawing.Point(31, 161);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(142, 26);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "ITEM NAME";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label1.Location = new System.Drawing.Point(31, 82);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(36, 26);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "ID";
+            // 
+            // eddistxt
+            // 
+            this.eddistxt.Location = new System.Drawing.Point(192, 328);
+            this.eddistxt.Name = "eddistxt";
+            this.eddistxt.Size = new System.Drawing.Size(201, 26);
+            this.eddistxt.TabIndex = 3;
+            // 
+            // edpricetxt
+            // 
+            this.edpricetxt.Location = new System.Drawing.Point(192, 236);
+            this.edpricetxt.Name = "edpricetxt";
+            this.edpricetxt.Size = new System.Drawing.Size(201, 26);
+            this.edpricetxt.TabIndex = 2;
+            // 
+            // ednametxt
+            // 
+            this.ednametxt.Location = new System.Drawing.Point(192, 161);
+            this.ednametxt.Name = "ednametxt";
+            this.ednametxt.Size = new System.Drawing.Size(201, 26);
+            this.ednametxt.TabIndex = 1;
+            // 
+            // idtxt
+            // 
+            this.idtxt.Location = new System.Drawing.Point(192, 82);
+            this.idtxt.Name = "idtxt";
+            this.idtxt.ReadOnly = true;
+            this.idtxt.Size = new System.Drawing.Size(201, 26);
+            this.idtxt.TabIndex = 0;
             // 
             // dataGridView1
             // 
@@ -184,6 +187,16 @@ namespace MartApplication
             this.panel2.Size = new System.Drawing.Size(921, 100);
             this.panel2.TabIndex = 2;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(248, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(129, 100);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 6;
+            this.pictureBox1.TabStop = false;
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -194,16 +207,6 @@ namespace MartApplication
             this.label5.Size = new System.Drawing.Size(189, 37);
             this.label5.TabIndex = 5;
             this.label5.Text = "SYR MART";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(248, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(129, 100);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 6;
-            this.pictureBox1.TabStop = false;
             // 
             // Edititems
             // 

@@ -44,6 +44,9 @@ namespace MartApplication
         private void button1_Click(object sender, EventArgs e)
         {
 
+
+
+
             SqlConnection sql = new SqlConnection(cs);
             sql.Open();
             string qry = "select * from signup where name = @name and password = @pass";
@@ -51,19 +54,28 @@ namespace MartApplication
             cmd.Parameters.AddWithValue("@name",usertxt.Text);
             cmd.Parameters.AddWithValue("@pass",passwordtxt.Text);
             SqlDataReader dr = cmd.ExecuteReader();
+        
             if (dr.HasRows == true)
             {
-                MessageBox.Show("Login successfull");
-                username = usertxt.Text;
-                this.Hide();
-                Form1 frm = new Form1();
-                frm.ShowDialog();
-              
+                if (string.IsNullOrEmpty(usertxt.Text) == true)
+                {
+                    MessageBox.Show("Fill the box first");
+                }
+                else
+                {
+                    MessageBox.Show("Login successfull");
+                    username = usertxt.Text;
+                    this.Hide();
+                    Form1 frm = new Form1();
+                    frm.ShowDialog();
+                }
             }
             else
             {
-                MessageBox.Show("failed to login");
+                MessageBox.Show("Login failed");
             }
+
+
 
 
 
@@ -97,6 +109,16 @@ namespace MartApplication
             this.Hide();
             si.ShowDialog();
            
+        }
+
+        private void usertxt_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void passwordtxt_TextChanged(object sender, EventArgs e)
+        {
+            passwordtxt.PasswordChar = '●';
         }
     }
 }

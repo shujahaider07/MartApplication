@@ -81,8 +81,59 @@ namespace MartApplication
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
             comboBox1.Focus();
             styleGridView2();
+        }
+
+
+        public int getLastInvoiceId()
+        {
+            SqlConnection sql = new SqlConnection(cs);
+            sql.Open();
+            String Qry = "select max(invoiceId) from order_master";
+            SqlCommand cmd = new SqlCommand(Qry,sql);
+            int maxid = Convert.ToInt32(cmd.ExecuteScalar());
+            return maxid;
+
+
+            sql.Close();
+        }
+        public void insertIntoOrderDetails()
+        {
+            SqlConnection sql = new SqlConnection(cs);
+            sql.Open();
+            int a = 0;
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+               
+                string qry = "insert into orderdetails values (@invoiceid , @name , @price ,@discount , @subtotal , @tax , @finalcost, @quantity )";
+                SqlCommand cmd = new SqlCommand(qry, sql);
+                cmd.Parameters.AddWithValue("@invoiceid", getLastInvoiceId());
+                cmd.Parameters.AddWithValue("@name",dataGridView1.Rows[i].Cells[1].Value.ToString());
+                cmd.Parameters.AddWithValue("@price",dataGridView1.Rows[i].Cells[2].Value.ToString());
+                cmd.Parameters.AddWithValue("@discount",dataGridView1.Rows[i].Cells[3].Value.ToString());
+                cmd.Parameters.AddWithValue("@subtotal",dataGridView1.Rows[i].Cells[5].Value.ToString());
+                cmd.Parameters.AddWithValue("@quantity",dataGridView1.Rows[i].Cells[4].Value.ToString());
+                cmd.Parameters.AddWithValue("@tax",dataGridView1.Rows[i].Cells[6].Value.ToString());
+                cmd.Parameters.AddWithValue("@finalcost",dataGridView1.Rows[i].Cells[7].Value.ToString());
+
+                a = a + cmd.ExecuteNonQuery();
+
+
+
+            }
+
+            if (a > 0)
+            {
+                MessageBox.Show("Data Inserted");
+            }
+            else
+            {
+                MessageBox.Show("Failed to inserted");
+            }
+
+            sql.Close();
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -146,7 +197,7 @@ namespace MartApplication
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             getPrice();
-           // getPrice1();
+            // getPrice1();
             Discount();
             quantitytxt.Enabled = true;
 
@@ -157,7 +208,7 @@ namespace MartApplication
             if (comboBox1.SelectedItem == null)
             {
 
-            }   
+            }
             else
             {
                 SqlConnection sql = new SqlConnection(cs);
@@ -185,7 +236,7 @@ namespace MartApplication
 
             if (string.IsNullOrEmpty(quantitytxt.Text) == true)
             {
-
+               
             }
             else
             {
@@ -204,7 +255,7 @@ namespace MartApplication
                 }
                 catch (Exception)
                 {
-
+                    MessageBox.Show("Insert Quantity");
                 }
 
             }
@@ -311,15 +362,21 @@ namespace MartApplication
         }
         public void finalCost()
         {
-            FinalCost = 0;
-            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            try
             {
-                FinalCost = FinalCost + Convert.ToInt32(dataGridView1.Rows[i].Cells[7].Value);
+                FinalCost = 0;
+                for (int i = 0; i < dataGridView1.Rows.Count; i++)
+                {
+                    FinalCost = FinalCost + Convert.ToInt32(dataGridView1.Rows[i].Cells[7].Value);
 
 
+                }
+                finalCosttxt.Text = FinalCost.ToString();
             }
-            finalCosttxt.Text = FinalCost.ToString();
-
+            catch (Exception)
+            {
+                MessageBox.Show("Fill the Quantity first");
+            }
         }
 
         private void unitpricetxt_TextChanged(object sender, EventArgs e)
@@ -442,7 +499,7 @@ namespace MartApplication
             sql.Close();
 
 
-
+            insertIntoOrderDetails();
         }
 
         private void label13_Click(object sender, EventArgs e)
@@ -498,13 +555,6 @@ namespace MartApplication
             e.Graphics.DrawString("Discount", new Font("Arial", 15, FontStyle.Bold), Brushes.Black, new Point(650, 520));
 
 
-
-
-
-
-
-
-
             if (dataGridView1.Rows.Count > 0)
             {
 
@@ -525,12 +575,6 @@ namespace MartApplication
                 }
 
             }
-
-
-
-
-
-
 
             if (dataGridView1.Rows.Count > 0)
             {
@@ -689,6 +733,7 @@ namespace MartApplication
         private void Form1_Activated(object sender, EventArgs e)
         {
             getItem();
+           
         }
 
         private void editItemsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -701,9 +746,55 @@ namespace MartApplication
         {
             Application.Exit();
         }
-       
+
+        private void unitpricetxt_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+        }
+
+        private void comboBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char ch = e.KeyChar;
+            if (char.IsDigit(ch) == true)
+            {
+                e.Handled = true;
+            }
+            else
+            {
+                e.Handled = false;
+            }
+        }
+
+        private void viewDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ViewData vw = new ViewData();
+            vw.ShowDialog();
+        }
+
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var confirmResult = MessageBox.Show("Are you sure to delete this item ??", "Confirm Delete!!", MessageBoxButtons.YesNo);
+
+
+            if (confirmResult == DialogResult.Yes && this.dataGridView1.SelectedRows.Count > 0)
+            {
+                dataGridView1.Rows.RemoveAt(this.dataGridView1.SelectedRows[0].Index);
+                totalcosttxt.Clear();
+               
+                
+            }
+
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            
+        }
+
     }
-}
+    }
+
+
 
 
 

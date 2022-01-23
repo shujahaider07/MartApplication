@@ -85,19 +85,37 @@ namespace MartApplication
 
         private void signbtn_Click(object sender, EventArgs e)
         {
-            SqlConnection sql = new SqlConnection(cs);
-            sql.Open();
-            string qry = "insert into signup values('" + nametxt.Text + "','" + surnametxt.Text + "','" + gendertxt.Text + "','" + agetxt.Text + "','" + addtxt.Text + "','" + passtxt.Text + "')";
-            SqlCommand cmd = new SqlCommand(qry, sql);
-            cmd.ExecuteNonQuery();
-            MessageBox.Show("Signup Sucessfull");
-            this.Hide();
-            login l1 = new login();
-            l1.ShowDialog();
+
+            if (string.IsNullOrEmpty(nametxt.Text)==true)
+            {
+                MessageBox.Show("Fill proper information");
+            }else if (string.IsNullOrEmpty(addtxt.Text)==true)
+            {
+                MessageBox.Show("Fill proper information");
+
+            }
+            else if (string.IsNullOrEmpty(passtxt.Text) == true)
+            {
+                MessageBox.Show("Fill proper information");
+            }
+            else
+            {
+
+                SqlConnection sql = new SqlConnection(cs);
+                sql.Open();
+                string qry = "insert into signup values('" + nametxt.Text + "','" + surnametxt.Text + "','" + gendertxt.Text + "','" + agetxt.Text + "','" + addtxt.Text + "','" + passtxt.Text + "')";
+                SqlCommand cmd = new SqlCommand(qry, sql);
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Signup Sucessfull");
+                this.Hide();
+                login l1 = new login();
+                l1.ShowDialog();
 
 
 
-            sql.Close();
+                sql.Close();
+
+            }
 
         }
 

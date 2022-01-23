@@ -29,6 +29,7 @@ namespace MartApplication
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(login));
             this.usertxt = new System.Windows.Forms.TextBox();
             this.passwordtxt = new System.Windows.Forms.TextBox();
@@ -40,9 +41,11 @@ namespace MartApplication
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // usertxt
@@ -51,14 +54,15 @@ namespace MartApplication
             this.usertxt.Name = "usertxt";
             this.usertxt.Size = new System.Drawing.Size(272, 26);
             this.usertxt.TabIndex = 0;
+            this.usertxt.TextChanged += new System.EventHandler(this.usertxt_TextChanged);
             // 
             // passwordtxt
             // 
             this.passwordtxt.Location = new System.Drawing.Point(420, 193);
             this.passwordtxt.Name = "passwordtxt";
-            this.passwordtxt.PasswordChar = '.';
             this.passwordtxt.Size = new System.Drawing.Size(272, 26);
             this.passwordtxt.TabIndex = 1;
+            this.passwordtxt.TextChanged += new System.EventHandler(this.passwordtxt_TextChanged);
             // 
             // button1
             // 
@@ -145,6 +149,10 @@ namespace MartApplication
             this.pictureBox3.TabIndex = 9;
             this.pictureBox3.TabStop = false;
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -169,6 +177,7 @@ namespace MartApplication
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -186,5 +195,6 @@ namespace MartApplication
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

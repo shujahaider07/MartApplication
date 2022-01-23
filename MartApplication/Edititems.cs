@@ -50,17 +50,58 @@ namespace MartApplication
 
         private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            
 
-               dataGridView1.CurrentRow.Selected = true;
+
+            
+                dataGridView1.CurrentRow.Selected = true;
                 idtxt.Text = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
                 ednametxt.Text = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
                 edpricetxt.Text = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
                 eddistxt.Text = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
 
-  
-            
+   
+
+        }
+
+        private void delbtn_Click(object sender, EventArgs e)
+        {
+            SqlConnection sql = new SqlConnection(cs);
+            sql.Open();
+            string qry = "delete from itemstbl where item_id = '" + idtxt.Text + "'";
+            SqlCommand cmd = new SqlCommand(qry, sql);
+            cmd.ExecuteNonQuery();
+
+            MessageBox.Show("Item DELETED !");
+            idtxt.Text = "";
+            ednametxt.Text = "";
+            edpricetxt.Text = "";
+            eddistxt.Text = "";
+            ednametxt.Focus();
+            bindGridView();
+
+
+            sql.Close();
+        }
+
+        private void editBtn_Click(object sender, EventArgs e)
+        {
+
+            SqlConnection sql = new SqlConnection(cs);
+            sql.Open();
+            string qry = "update itemstbl set item_name = '"+ednametxt.Text+ "' , item_price ='" + edpricetxt.Text + "' , item_discount = '" + eddistxt.Text + "' where item_id = '" + idtxt.Text + "'";
+            SqlCommand cmd = new SqlCommand(qry, sql);
+            cmd.ExecuteNonQuery();
            
+                MessageBox.Show("updated item");
+                idtxt.Text = "";
+                ednametxt.Text = "";
+                edpricetxt.Text = "";
+                eddistxt.Text = "";
+                ednametxt.Focus();
+
+
+
+            sql.Close();
 
         }
     }
