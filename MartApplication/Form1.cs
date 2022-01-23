@@ -104,29 +104,33 @@ namespace MartApplication
             SqlConnection sql = new SqlConnection(cs);
             sql.Open();
             int a = 0;
+
             for (int i = 0; i < dataGridView1.Rows.Count; i++)
             {
                
                 string qry = "insert into orderdetails values (@invoiceid , @name , @price ,@discount , @subtotal , @tax , @finalcost, @quantity )";
-                SqlCommand cmd = new SqlCommand(qry, sql);
-                cmd.Parameters.AddWithValue("@invoiceid", getLastInvoiceId());
-                cmd.Parameters.AddWithValue("@name",dataGridView1.Rows[i].Cells[1].Value.ToString());
-                cmd.Parameters.AddWithValue("@price",dataGridView1.Rows[i].Cells[2].Value.ToString());
-                cmd.Parameters.AddWithValue("@discount",dataGridView1.Rows[i].Cells[3].Value.ToString());
-                cmd.Parameters.AddWithValue("@subtotal",dataGridView1.Rows[i].Cells[5].Value.ToString());
-                cmd.Parameters.AddWithValue("@quantity",dataGridView1.Rows[i].Cells[4].Value.ToString());
-                cmd.Parameters.AddWithValue("@tax",dataGridView1.Rows[i].Cells[6].Value.ToString());
-                cmd.Parameters.AddWithValue("@finalcost",dataGridView1.Rows[i].Cells[7].Value.ToString());
+                try
+                {
+                    SqlCommand cmd = new SqlCommand(qry, sql);
+                    cmd.Parameters.AddWithValue("@invoiceid", getLastInvoiceId());
+                    cmd.Parameters.AddWithValue("@name", dataGridView1.Rows[i].Cells[1].Value.ToString());
+                    cmd.Parameters.AddWithValue("@price", dataGridView1.Rows[i].Cells[2].Value.ToString());
+                    cmd.Parameters.AddWithValue("@discount", dataGridView1.Rows[i].Cells[3].Value.ToString());
+                    cmd.Parameters.AddWithValue("@subtotal", dataGridView1.Rows[i].Cells[5].Value.ToString());
+                    cmd.Parameters.AddWithValue("@quantity", dataGridView1.Rows[i].Cells[7].Value.ToString());
+                    cmd.Parameters.AddWithValue("@tax", dataGridView1.Rows[i].Cells[6].Value.ToString());
+                    cmd.Parameters.AddWithValue("@finalcost", dataGridView1.Rows[i].Cells[4].Value.ToString());
 
-                a = a + cmd.ExecuteNonQuery();
+                    a = a + Convert.ToInt32(cmd.ExecuteNonQuery());
+                }catch(Exception)
+                {
 
-
-
+                }
             }
 
             if (a > 0)
             {
-                MessageBox.Show("Data Inserted");
+                MessageBox.Show("");
             }
             else
             {
@@ -726,8 +730,11 @@ namespace MartApplication
 
         private void addItemsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            addItems ad = new addItems();
+
+
+            Adminstration ad = new Adminstration();
             ad.ShowDialog();
+
         }
 
         private void Form1_Activated(object sender, EventArgs e)
@@ -738,8 +745,8 @@ namespace MartApplication
 
         private void editItemsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Edititems et = new Edititems();
-            et.ShowDialog();
+            Adminstration ad = new Adminstration();
+            ad.ShowDialog();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)

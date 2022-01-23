@@ -53,6 +53,12 @@
     <Compile Include="addItems.Designer.cs">
       <DependentUpon>addItems.cs</DependentUpon>
     </Compile>
+    <Compile Include="Adminstration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Adminstration.Designer.cs">
+      <DependentUpon>Adminstration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Edititems.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,6 +93,9 @@
     </Compile>
     <EmbeddedResource Include="addItems.resx">
       <DependentUpon>addItems.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Adminstration.resx">
+      <DependentUpon>Adminstration.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Edititems.resx">
       <DependentUpon>Edititems.cs</DependentUpon>
